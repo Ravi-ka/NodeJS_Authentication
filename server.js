@@ -6,6 +6,12 @@ import { connectToMongoDB } from "./config/dbConnection.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 
+import {
+  getLoginController,
+  getSignupController,
+  postSignupController,
+} from "./src/features/user/controllers/user.controller.js";
+
 const server = express();
 const configPath = path.resolve("uat.env");
 dotenv.config({ path: configPath });
@@ -34,12 +40,9 @@ server.set(
   path.join(path.resolve(), "src", "features", "user", "views")
 );
 
-server.get("/login", (req, res) => {
-  res.render("login");
-});
-server.get("/signup", (req, res) => {
-  res.render("signup");
-});
+server.get("/login", getLoginController);
+server.get("/signup", getSignupController);
+server.post("/signup", postSignupController);
 
 server.listen(process.env.PORT, (err) => {
   if (err) {

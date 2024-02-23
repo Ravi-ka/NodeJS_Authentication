@@ -38,7 +38,7 @@
   </head>
   <body class="text-center">
     <main class="form-signin">
-      <form>
+      <form method="post" action="/signup" autocomplete="on">
         <img
           class="mb-4"
           src="Images/account.png"
@@ -54,6 +54,7 @@
             class="form-control"
             id="floatingInput"
             placeholder="name@example.com"
+            name="email"
           />
           <label for="floatingInput">Email address</label>
         </div>
@@ -63,6 +64,7 @@
             class="form-control"
             id="floatingPassword"
             placeholder="Password"
+            name="password"
           />
           <label for="floatingPassword">Password</label>
         </div>

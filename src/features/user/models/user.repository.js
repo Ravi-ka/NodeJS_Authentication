@@ -5,7 +5,7 @@ export const signupRepo = async (userData) => {
     return await new UserModel(userData).save();
   } catch (error) {
     if (error.code === 11000) {
-      throw new Error("Email already registered");
+      return error;
     } else console.log(error);
   }
 };

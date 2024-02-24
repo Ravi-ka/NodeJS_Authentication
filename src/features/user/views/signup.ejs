@@ -37,8 +37,18 @@
     <link href="signin.css" rel="stylesheet" />
   </head>
   <body class="text-center">
+    <div>
+      <% if (errors) { %>
+      <div class="alert alert-danger" role="alert">
+        <% errors.forEach((error)=>{ %>
+        <span><%=error%></span>
+        <%})%>
+      </div>
+      <% } %>
+    </div>
+
     <main class="form-signin">
-      <form method="post" action="/signup" autocomplete="on">
+      <form method="post" action="/signup" autocomplete="on" required>
         <img
           class="mb-4"
           src="Images/account.png"
@@ -46,7 +56,7 @@
           width="72"
           height="57"
         />
-        <h1 class="h3 mb-3 fw-normal">Sign UP</h1>
+        <h1 class="h3 mb-3 fw-normal text-light">Sign UP</h1>
 
         <div class="form-floating">
           <input
@@ -77,7 +87,9 @@
         <button class="w-100 btn btn-lg btn-primary" type="submit">
           Create Account
         </button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2023–2024</p>
+        <p class="mt-5 mb-3 text-muted">
+          <span class="text-light">&copy;2023–2024</span>
+        </p>
       </form>
     </main>
 

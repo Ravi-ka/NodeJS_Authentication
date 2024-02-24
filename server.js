@@ -11,6 +11,7 @@ import passport from "passport";
 import {
   getLoginController,
   getLogout,
+  getResetPasswordView,
   getSecuredPath,
   getSignupController,
   postLoginController,
@@ -56,18 +57,16 @@ server.post("/signup", postSignupController);
 server.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/securedpath",
+    successRedirect: "/homepage",
     failureRedirect: "/login",
     failureFlash: true,
   })
 );
 //server.post("/login", postLoginController);
 server.get("/logout", getLogout);
-server.get("/securedpath", getSecuredPath);
-
-server.get("/lib/noty.js", (req, res) => {
-  res.type("application/javascript");
-});
+server.get("/homepage", getSecuredPath);
+server.get("/reset-password", getResetPasswordView);
+server.post("/reset-password"); //todo - continue here
 
 server.listen(process.env.PORT, (err) => {
   if (err) {

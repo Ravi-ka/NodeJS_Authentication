@@ -27,6 +27,7 @@
     "express": "^4.18.2",
     "express-session": "^1.18.0",
     "mongoose": "^8.2.0",
+    "nodemailer": "^6.9.10",
     "noty": "^3.2.0-beta-deprecated",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0"

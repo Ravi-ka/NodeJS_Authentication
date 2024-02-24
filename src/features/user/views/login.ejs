@@ -38,6 +38,10 @@
   </head>
   <body class="text-center">
     <main class="form-signin">
+      <% if(errorMessage){%>
+      <div class="alert alert-danger"><%=errorMessage%></div>
+      <%}%>
+
       <form action="/login" method="post">
         <img
           class="mb-4"

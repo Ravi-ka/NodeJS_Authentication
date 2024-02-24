@@ -4,7 +4,8 @@ import { signupRepo } from "../models/user.repository.js";
 
 export const getLoginController = async (req, res) => {
   try {
-    return res.render("login");
+    const errorMessage = req.flash("error")[0];
+    return res.render("login", { errorMessage });
   } catch (error) {
     console.log(error);
   }

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import ejs from "ejs";
 import { connectToMongoDB } from "./config/dbConnection.js";
 import session from "express-session";
+import flash from "connect-flash";
 import MongoStore from "connect-mongo";
 import "./config/passport.js";
 import passport from "passport";
@@ -39,6 +40,7 @@ server.use(
   })
 );
 
+server.use(flash());
 server.use(passport.initialize());
 server.use(passport.session());
 
@@ -56,11 +58,16 @@ server.post(
   passport.authenticate("local", {
     successRedirect: "/securedpath",
     failureRedirect: "/login",
+    failureFlash: true,
   })
 );
 //server.post("/login", postLoginController);
 server.get("/logout", getLogout);
 server.get("/securedpath", getSecuredPath);
+
+server.get("/lib/noty.js", (req, res) => {
+  res.type("application/javascript");
+});
 
 server.listen(process.env.PORT, (err) => {
   if (err) {

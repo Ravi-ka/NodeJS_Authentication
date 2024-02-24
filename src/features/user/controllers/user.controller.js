@@ -31,3 +31,38 @@ export const postSignupController = async (req, res) => {
     console.log(error);
   }
 };
+
+export const postLoginController = async (req, res) => {
+  try {
+    console.log(req.body);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getLogout = async (req, res) => {
+  try {
+    req.logout(function (err) {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Error logging out");
+      }
+      res.redirect("/login");
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error logging out");
+  }
+};
+
+export const getSecuredPath = async (req, res) => {
+  try {
+    if (req.isAuthenticated()) {
+      res.render("securedpath");
+    } else {
+      res.status(401).send({ msg: "Unauthorized" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};

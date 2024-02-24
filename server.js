@@ -5,12 +5,17 @@ import ejs from "ejs";
 import { connectToMongoDB } from "./config/dbConnection.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
-
+import "./config/passport.js";
+import passport from "passport";
 import {
   getLoginController,
+  getLogout,
+  getSecuredPath,
   getSignupController,
+  postLoginController,
   postSignupController,
 } from "./src/features/user/controllers/user.controller.js";
+//import { passportLocalStrategy } from "./config/passport.js";
 
 const server = express();
 const configPath = path.resolve("uat.env");
@@ -34,6 +39,9 @@ server.use(
   })
 );
 
+server.use(passport.initialize());
+server.use(passport.session());
+
 server.set("view engine", "ejs");
 server.set(
   "views",
@@ -43,6 +51,16 @@ server.set(
 server.get("/login", getLoginController);
 server.get("/signup", getSignupController);
 server.post("/signup", postSignupController);
+server.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/securedpath",
+    failureRedirect: "/login",
+  })
+);
+//server.post("/login", postLoginController);
+server.get("/logout", getLogout);
+server.get("/securedpath", getSecuredPath);
 
 server.listen(process.env.PORT, (err) => {
   if (err) {

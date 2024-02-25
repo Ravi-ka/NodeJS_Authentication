@@ -25,12 +25,15 @@ import { authenticationMiddleware } from "./middlewares/authenticationMiddleware
 //import { passportLocalStrategy } from "./config/passport.js";
 
 const server = express();
+// Dotenv setup
 const configPath = path.resolve("uat.env");
 dotenv.config({ path: configPath });
 
 server.use(express.urlencoded({ extended: true }));
+//Statically exposing the public folder
 server.use(express.static("public"));
 
+// Cookies setup
 server.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -50,17 +53,18 @@ server.use(flash());
 server.use(passport.initialize());
 server.use(passport.session());
 
+// ejs setup
 server.set("view engine", "ejs");
 server.set(
   "views",
   path.join(path.resolve(), "src", "features", "user", "views")
 );
 
+// Google Auth
 server.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile"] })
 );
-
 server.get(
   "/auth/callback",
   passport.authenticate("google", {
@@ -69,6 +73,7 @@ server.get(
   })
 );
 
+// Routes
 server.get("/", (req, res) => {
   res.send("default path");
 });
@@ -76,8 +81,6 @@ server.get("/login", getLoginController);
 server.get("/signup", getSignupController);
 server.post("/signup", postSignupController);
 server.post("/login", authenticationMiddleware);
-
-//server.post("/login", postLoginController);
 server.get("/logout", getLogout);
 server.get("/homepage", getSecuredPath);
 server.get("/reset-password", getResetPasswordView);

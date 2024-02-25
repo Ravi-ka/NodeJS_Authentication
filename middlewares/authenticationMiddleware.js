@@ -1,3 +1,5 @@
+// Middleware that accepts both local and google OAuth2.0
+
 import passport from "passport";
 
 export const authenticationMiddleware = (req, res, next) => {

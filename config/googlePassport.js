@@ -1,3 +1,4 @@
+// passport-google-OAuth2.0 configuration file
 import passport from "passport";
 import { UserModel } from "../src/features/user/models/user.schema.js";
 import GoogleStrategy from "passport-google-oauth20";

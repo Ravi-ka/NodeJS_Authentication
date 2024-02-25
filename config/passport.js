@@ -1,3 +1,5 @@
+// passport-local configuration
+
 import passport from "passport";
 import LocalStrategy from "passport-local";
 import { UserModel } from "../src/features/user/models/user.schema.js";

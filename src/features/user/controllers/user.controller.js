@@ -6,6 +6,7 @@ import passport from "passport";
 import { createPasswordResetToken } from "../../../../utils/createPasswordResetToken.js";
 import { sendPasswordResetEmail } from "../../../../utils/emails/passwordResetMail.js";
 
+// method for rendering the login page
 export const getLoginController = async (req, res) => {
   try {
     const errorMessage = req.flash("error")[0];
@@ -15,6 +16,7 @@ export const getLoginController = async (req, res) => {
   }
 };
 
+// method for rendering the signup page
 export const getSignupController = async (req, res) => {
   try {
     return res.render("signup", { errors: null });
@@ -54,6 +56,7 @@ export const postLoginController = async (req, res) => {
   }
 };
 
+// user logout method
 export const getLogout = async (req, res) => {
   try {
     req.logout(function (err) {
@@ -81,6 +84,7 @@ export const getSecuredPath = async (req, res) => {
   }
 };
 
+// method for rendering the reset password page
 export const getResetPasswordView = async (req, res) => {
   try {
     res.render("resetPasswordView", { error: null });
@@ -125,6 +129,7 @@ export const postResetPasswordView = async (req, res) => {
   }
 };
 
+// method for rendering the forgot password page
 export const getForgotPasswordView = async (req, res) => {
   try {
     res.render("forgotPassword", { errors: null });

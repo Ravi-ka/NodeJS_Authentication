@@ -14,6 +14,8 @@ export const userSchema = mongoose.Schema({
   token: {
     type: String,
   },
+  googleId: String,
+  name: String,
 });
 
 export const UserModel = mongoose.model("User", userSchema);

@@ -7,6 +7,7 @@ import session from "express-session";
 import flash from "connect-flash";
 import MongoStore from "connect-mongo";
 import "./config/passport.js";
+import "./config/googlePassport.js";
 import passport from "passport";
 import {
   getForgotPasswordView,
@@ -20,6 +21,7 @@ import {
   postResetPasswordView,
   postSignupController,
 } from "./src/features/user/controllers/user.controller.js";
+import { authenticationMiddleware } from "./middlewares/authenticationMiddleware.js";
 //import { passportLocalStrategy } from "./config/passport.js";
 
 const server = express();
@@ -54,17 +56,27 @@ server.set(
   path.join(path.resolve(), "src", "features", "user", "views")
 );
 
+server.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile"] })
+);
+
+server.get(
+  "/auth/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/login",
+    successRedirect: "/homepage",
+  })
+);
+
+server.get("/", (req, res) => {
+  res.send("default path");
+});
 server.get("/login", getLoginController);
 server.get("/signup", getSignupController);
 server.post("/signup", postSignupController);
-server.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/homepage",
-    failureRedirect: "/login",
-    failureFlash: true,
-  })
-);
+server.post("/login", authenticationMiddleware);
+
 //server.post("/login", postLoginController);
 server.get("/logout", getLogout);
 server.get("/homepage", getSecuredPath);

@@ -9,12 +9,15 @@ import MongoStore from "connect-mongo";
 import "./config/passport.js";
 import passport from "passport";
 import {
+  getForgotPasswordView,
   getLoginController,
   getLogout,
   getResetPasswordView,
   getSecuredPath,
   getSignupController,
+  postForgotPasswordView,
   postLoginController,
+  postResetPasswordView,
   postSignupController,
 } from "./src/features/user/controllers/user.controller.js";
 //import { passportLocalStrategy } from "./config/passport.js";
@@ -66,7 +69,9 @@ server.post(
 server.get("/logout", getLogout);
 server.get("/homepage", getSecuredPath);
 server.get("/reset-password", getResetPasswordView);
-server.post("/reset-password"); //todo - continue here
+server.post("/reset-password", postResetPasswordView);
+server.get("/forgot-password", getForgotPasswordView);
+server.post("/forgot-password", postForgotPasswordView);
 
 server.listen(process.env.PORT, (err) => {
   if (err) {

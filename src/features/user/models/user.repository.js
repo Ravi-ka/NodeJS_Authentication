@@ -9,3 +9,11 @@ export const signupRepo = async (userData) => {
     } else console.log(error);
   }
 };
+
+export const checkUserEmail = async (email) => {
+  try {
+    return await UserModel.findOne({ email });
+  } catch (error) {
+    console.log(error);
+  }
+};

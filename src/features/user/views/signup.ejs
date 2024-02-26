@@ -37,17 +37,16 @@
     <link href="signin.css" rel="stylesheet" />
   </head>
   <body class="text-center">
-    <div>
-      <% if (errors) { %>
-      <div class="alert alert-danger" role="alert">
-        <% errors.forEach((error)=>{ %>
-        <span><%=error%></span>
-        <%})%>
-      </div>
-      <% } %>
-    </div>
-
     <main class="form-signin">
+      <div>
+        <% if (errors) { %>
+        <div class="alert alert-danger" role="alert">
+          <% errors.forEach((error)=>{ %>
+          <span><%=error%></span>
+          <%})%>
+        </div>
+        <% } %>
+      </div>
       <form method="post" action="/signup" autocomplete="on" required>
         <img
           class="mb-4"

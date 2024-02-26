@@ -15,7 +15,7 @@ export const sendWelcomeEmail = async (user) => {
       subject: "Welcome to NodeJS Authenticator Application",
       html: `
     <div style="display:flex;justify-content:center;align-item:center">
-    <img src="/Images/Hello-rafiki.svg">
+    
     </div>
     <center >
     <p><h1>Welcome to NodeJS Authenticator Application</h1></p>

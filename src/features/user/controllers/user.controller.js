@@ -28,15 +28,18 @@ export const getSignupController = async (req, res) => {
 export const postSignupController = async (req, res) => {
   try {
     let errors = [];
-    const password = await bcrypt.hash(req.body.password, 10);
+    const { email, password } = req.body;
+    console.log(req.body);
+    const hashPassword = await bcrypt.hash(password, 10);
     const newUser = {
-      email: req.body.email,
-      password: password,
+      email: email,
+      password: hashPassword,
     };
     const result = await signupRepo(newUser);
     if (result.code === 11000) {
       errors.push("Email already registered");
     }
+    console.log(errors);
     if (errors.length >= 1) {
       return res.render("signup", { errors: errors });
     }
